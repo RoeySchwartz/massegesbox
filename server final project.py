@@ -6,6 +6,7 @@ addresses_list = []
 HOST = socket.gethostbyname(socket.gethostname())
 PORT = 9090
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 server.bind((HOST, PORT))
 
 
