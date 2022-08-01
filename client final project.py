@@ -80,5 +80,5 @@ class Client:
                     print("Error" + str(err))
 
 
-a = Client("192.168.1.62", 9090)
+a = Client(socket.gethostbyname(socket.gethostname()), 9090)
 a.connect()
