@@ -32,7 +32,7 @@ class Client:
         self.win.geometry("500x500")
         top_title = tkinter.Label(self.win, text='chat:')
         top_title.place(x=230, y=1)
-        
+
         self.overview = tkinter.scrolledtext.ScrolledText(self.win, height=20, width=55)
         self.overview.place(relx=0.05, y=20)
         self.overview.config(state="disabled")
@@ -51,25 +51,22 @@ class Client:
 
     def button1(self):
         self.overview.config(state="normal")
-        message = f"{self.name}: {self.message_box.get('1.0', 'end')}"
-        self.client.sendall(message.encode("utf-8"))
-        self.overview.insert("0.0", f'{self.client.recv(1024).decode("utf-8")}')
+        message_to_server = f"{self.name}: {self.message_box.get('1.0', 'end')}"
+        self.client.send(f"{message_to_server}".encode("utf-8"))
+        self.overview.insert("end", f'{self.client.recv(1024).decode("utf-8")}')
         self.overview.config(state="disabled")
 
     def receive_msg(self):
-        index = 0
-        while index < 100:
+        while True:
             try:
                 message = self.client.recv(1024).decode('utf-8')
                 self.overview.config(state="normal")
                 self.overview.insert("end", "\n" + str(message))
-                self.overview.yview("end")
                 self.overview.config(state="disable")
-                index += 1
                 self.client.send("Accept Message".encode('utf-8'))
             except Exception as err:
                 print("Error" + str(err))
 
 
-a = Client("192.168.1.62", 9090)
+a = Client("192.168.1.29", 9090)
 a.connect()

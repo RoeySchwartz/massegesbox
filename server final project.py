@@ -18,7 +18,7 @@ def receive_messages():
         print(f"connected to: {address}")
         addresses_list.append(address)
         my_message = client_socket.recv(1024).decode("utf-8")
-        history_msg = open("history_messages.txt", "w")
+        history_msg = open("history_messages.txt", "r+")
         history_msg.write(f"{my_message}")
         history_msg.close()
         client_socket.send(f"{my_message}".encode("utf-8"))
