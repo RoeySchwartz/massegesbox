@@ -3,6 +3,7 @@ import threading
 import tkinter
 import tkinter.scrolledtext
 
+
 class Client:
     def __init__(self, host, port):
         self.host = host
