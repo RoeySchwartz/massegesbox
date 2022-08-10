@@ -8,6 +8,7 @@ HOST = socket.gethostbyname(socket.gethostname())
 PORT = 9090
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((HOST, PORT))
+threading.Thread(target=server.listen()).start()
 
 
 def receive_messages_from_client():
