@@ -1,6 +1,7 @@
 import socket
 import threading
 import time
+import random
 
 addresses_list = []
 
@@ -13,16 +14,17 @@ threading.Thread(target=server.listen()).start()
 
 def receive_messages_from_client():
     while True:
-        threading.Thread(target=server.listen()).start()
         client_socket, address = server.accept()
+        encryption = random.randint(1, 50)
+        client_socket.send(str(encryption).encode("utf-8"))
         print(f"connected to: {address}")
         addresses_list.append(address)
-        message_from_server = client_socket.recv(1024).decode("utf-8")
+        message_from_client = client_socket.recv(1024).decode("utf-8")
         history_msg = open("studentsgrades.txt", "r+")
-        history_msg.write(f"{message_from_server}")
+        history_msg.write(f"{message_from_client}")
         history_msg.close()
-        client_socket.send(f"{message_from_server}".encode("utf-8"))
-        server.shutdown(2)
+        client_socket.send(f"{message_from_client}".encode("utf-8"))
+        client_socket.shutdown(1)
         time.sleep(2.0)
 
 

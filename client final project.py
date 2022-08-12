@@ -2,6 +2,7 @@ import socket
 import threading
 import tkinter
 import tkinter.scrolledtext
+import random
 
 
 class Client:
@@ -11,6 +12,9 @@ class Client:
         self.win = None
         threading.Thread(target=self.gui_config).start()
 
+        self.receive_encryption = None
+        self.encryption = None
+        self.receive_encryption = None
         self.is_init_display = False
 
         self.overview = None
@@ -50,14 +54,19 @@ class Client:
         self.win.mainloop()
 
     def button(self):
-        self.overview.config(state="normal")
+        self.encryption = random.randint(1, 50)
+        self.receive_encryption = self.client.recv(1024).decode("utf-8")
+        while not self.encryption == int(self.receive_encryption):
+            self.encryption = random.randint(1, 50)
         message_to_server = f"{self.name}: {self.message_box.get('1.0', 'end')}"
         self.client.send(f"{message_to_server}".encode("utf-8"))
-        self.overview.insert("end", f"{self.client.recv(1024).decode('utf-8')}")
-        self.overview.config(state="disabled")
 
     def receive_msg(self):
         while True:
+            self.encryption = random.randint(1, 50)
+            self.receive_encryption = self.client.recv(1024).decode("utf-8")
+            while not self.encryption == int(self.receive_encryption):
+                self.encryption = random.randint(1, 50)
             message = self.client.recv(1024).decode("utf-8")
             self.overview.config(state="normal")
             self.overview.insert("end", "\n" + str(message))
