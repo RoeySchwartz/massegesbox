@@ -60,17 +60,19 @@ class Client:
             self.encryption = random.randint(1, 50)
         message_to_server = f"{self.name}: {self.message_box.get('1.0', 'end')}"
         self.client.send(f"{message_to_server}".encode("utf-8"))
+        threading.Thread(target=receive_msg)
 
     def receive_msg(self):
-        while True:
+        self.encryption = random.randint(1, 50)
+        self.receive_encryption = self.client.recv(1024).decode("utf-8")
+        while not self.encryption == int(self.receive_encryption):
             self.encryption = random.randint(1, 50)
-            self.receive_encryption = self.client.recv(1024).decode("utf-8")
-            while not self.encryption == int(self.receive_encryption):
-                self.encryption = random.randint(1, 50)
+        while True:
             message = self.client.recv(1024).decode("utf-8")
-            self.overview.config(state="normal")
-            self.overview.insert("end", "\n" + str(message))
-            self.overview.config(state="disabled")
+            if message == self.receive_encryption:
+                self.overview.config(state="normal")
+                self.overview.insert("end", "\n" + str(message))
+                self.overview.config(state="disabled")
 
 
 play = Client("192.168.1.29", 9090)
