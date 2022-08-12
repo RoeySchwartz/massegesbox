@@ -60,7 +60,7 @@ class Client:
             self.encryption = random.randint(1, 50)
         message_to_server = f"{self.name}: {self.message_box.get('1.0', 'end')}"
         self.client.send(f"{message_to_server}".encode("utf-8"))
-        threading.Thread(target=receive_msg)
+        threading.Thread(target=self.receive_msg)
 
     def receive_msg(self):
         self.encryption = random.randint(1, 50)
