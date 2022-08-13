@@ -19,7 +19,10 @@ def get_client_messages(client_connection):
 
 def send_client_messages(message: str, sender_connection):
     for client in connected_clients:
-        client.send(message.encode())
+        try:
+            client.send(message.encode())
+        except OSError:
+            connected_clients.remove(client)
 
 
 def server_program():

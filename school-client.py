@@ -52,7 +52,7 @@ class Client:
         self.server_socket.connect((self.HOST, self.PORT))  # connect to the server
         threading.Thread(target=self.client_send_message, args=(self.server_socket,)).start()
         threading.Thread(target=self.client_receive_message, args=(self.server_socket,)).start()
-        threading.Thread(target=self.print_in_gui).start()
+        self.print_in_gui()
 
 
 if __name__ == '__main__':
