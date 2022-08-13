@@ -10,7 +10,7 @@ server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((HOST, PORT))
 
 
-def connection(client_socket, address):
+def receive_messages_from_client(client_socket, address):
     connect = True
     encryption = random.randint(1, 50)
     client_socket.send(str(encryption).encode("utf-8"))
@@ -28,11 +28,11 @@ def connection(client_socket, address):
     client_socket.close()
 
 
-def receive_messages_from_client():
+def connection():
     server.listen()
     while True:
         client_socket, address = server.accept()
-        threading.Thread(target=connection, args=(client_socket, address)).start()
+        threading.Thread(target=receive_messages_from_client, args=(client_socket, address)).start()
 
 
 receive_messages_from_client()
