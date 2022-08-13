@@ -46,15 +46,15 @@ class Client:
         self.message_box = tkinter.Text(self.win, height=2, width=55)
         self.message_box.place(relx=0.05, y=400)
 
-        my_btn = tkinter.Button(self.win, text="send message:", command=self.button)
+        my_btn = tkinter.Button(self.win, text="send message:", command=self.send_message)
         my_btn.place(x=200, y=450)
 
         self.win.mainloop()
 
-    def button(self):
+    def send_message(self):
         message_from_message_box = self.message_box.get("1.0", "end")
-        self.server_socket.send(message_from_message_box.encode())
-        threading.Thread(target=self.client_receive_message)
+        self.server_socket.send(f'{client_id}: {message_from_message_box}'.encode())
+        self.message_box.delete(1.0, 'end')
 
     def client_program(self):
         self.server_socket.connect((self.HOST, self.PORT))  # connect to the server
@@ -64,5 +64,5 @@ class Client:
 
 
 if __name__ == '__main__':
-    play = Client(socket.socket(socket.AF_INET, socket.SOCK_STREAM), socket.gethostbyname('localhost'), 5005)
+    play = Client(socket.socket(socket.AF_INET, socket.SOCK_STREAM), socket.gethostbyname('localhost'), 5017)
     play.client_program()
