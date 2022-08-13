@@ -10,7 +10,7 @@ class Client:
         self.host = host
         self.port = port
         self.win = None
-        threading.Thread(target=self.gui_config).start()
+        # threading.Thread(target=self.gui_config).start()
 
         self.receive_encryption = None
         self.encryption = None
@@ -23,8 +23,8 @@ class Client:
         self.message_box = None
 
     def connect(self):
-        while not self.is_init_display:
-            pass
+        # while not self.is_init_display:
+        #     pass
 
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client.connect((self.host, self.port))
@@ -69,11 +69,12 @@ class Client:
             self.encryption = random.randint(1, 50)
         while True:
             message = self.client.recv(1024).decode("utf-8")
-            if message == self.receive_encryption:
-                self.overview.config(state="normal")
-                self.overview.insert("end", "\n" + str(message))
-                self.overview.config(state="disabled")
+            print(message)
+            # if message == self.receive_encryption:
+            #     self.overview.config(state="normal")
+            #     self.overview.insert("end", "\n" + str(message))
+            #     self.overview.config(state="disabled")
 
 
-play = Client("192.168.1.29", 9090)
+play = Client("192.168.1.38", 9090)
 play.connect()
