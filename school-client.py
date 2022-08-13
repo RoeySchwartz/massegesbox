@@ -29,7 +29,9 @@ class Client:
             if not data:
                 # if data is not received break
                 break
-            print(data)
+            self.overview.config(state='normal')
+            self.overview.insert('end', str(data))
+            self.overview.config(state='disabled')
 
     def print_in_gui(self):
         self.win = tkinter.Tk()

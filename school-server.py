@@ -3,7 +3,7 @@ import threading
 
 messages = []
 connected_clients = []
-MAX_CONNECTION = 30
+MAX_CONNECTION = 3
 
 
 def get_client_messages(client_connection):
