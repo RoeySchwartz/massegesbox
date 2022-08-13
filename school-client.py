@@ -3,14 +3,13 @@ import socket
 import threading
 import tkinter
 import tkinter.scrolledtext
-
-client_id = os.getenv('CLIENT_ID')
-
-
+from cryptography.fernet import Fernet
 
 
 class Client:
-    def __init__(self, server_socket, HOST, PORT ):
+    def __init__(self, server_socket, HOST, PORT):
+        self.encryption = None
+        self.encryption_key = None
         self.name = input('enter your name: ')
         self.win = None
         self.overview = None
@@ -19,13 +18,10 @@ class Client:
         self.HOST = HOST
         self.PORT = PORT
 
-
-
     def client_receive_message(self, server_socket):
         while True:
             data = server_socket.recv(1024).decode()
             if not data:
-                # if data is not received break
                 break
             self.overview.config(state='normal')
             self.overview.insert('end', str(data))
@@ -55,14 +51,15 @@ class Client:
     def button(self):
         message_from_message_box = self.message_box.get("1.0", "end")
         self.message_box.delete('1.0', 'end')
-        self.server_socket.send(f'{self.name}: {message_from_message_box}'.encode())
+        message_to_encryption = f'{self.name}: {message_from_message_box}'
+        self.server_socket.send(self.encryption(message_to_encryption.encode()))
 
 
     def client_program(self):
-        self.server_socket.connect((self.HOST, self.PORT))  # connect to the server
+        self.server_socket.connect((self.HOST, self.PORT))
+        self.encryption_key = self.server_socket.recv(1024).decode()
+        self.encryption = Fernet(self.encryption_key)
         self.print_in_gui()
-
-
 
 
 if __name__ == '__main__':
