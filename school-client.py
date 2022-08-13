@@ -2,14 +2,15 @@ import os
 import socket
 import threading
 import tkinter
-
-# import tkinter.scrolledtext
+import tkinter.scrolledtext
 
 client_id = os.getenv('CLIENT_ID')
 
 
 class Client:
     def __init__(self, server_socket, HOST, PORT):
+        self.win = None
+        self.overview = None
         self.message_box = None
         self.server_socket = server_socket
         self.HOST = HOST
@@ -21,6 +22,7 @@ class Client:
             message = input(" -> ")  # again take input
             self.server_socket.send(f'{client_id}: {message}'.encode())  # send message
 
+
     def client_receive_message(self, server_socket):
         while True:
             data = server_socket.recv(1024).decode()
@@ -30,18 +32,22 @@ class Client:
             print(data)
 
     def print_in_gui(self):
-        win = tkinter.Tk()
-        win.geometry("500x500")
-        top_title = tkinter.Label(win, text="chat: ")
+        self.win = tkinter.Tk()
+        self.win.geometry("500x500")
+        top_title = tkinter.Label(self.win, text="chat: ")
         top_title.place(x=230, y=1)
 
-        self.message_box = tkinter.Text(win, height=2, width=55)
+        self.overview = tkinter.scrolledtext.ScrolledText(self.win, height=20, width=55)
+        self.overview.place(relx=0.05, y=20)
+        self.overview.config(state="disabled")
+
+        self.message_box = tkinter.Text(self.win, height=2, width=55)
         self.message_box.place(relx=0.05, y=400)
 
-        my_btn = tkinter.Button(win, text="send message:", command=self.button)
+        my_btn = tkinter.Button(self.win, text="send message:", command=self.button)
         my_btn.place(x=200, y=450)
 
-        win.mainloop()
+        self.win.mainloop()
 
     def button(self):
         message_from_message_box = self.message_box.get("1.0", "end")
