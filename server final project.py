@@ -32,7 +32,7 @@ def receive_messages_from_client():
     server.listen()
     while True:
         client_socket, address = server.accept()
-        thread = threading.Thread(target=connection, args=(client_socket, address)).start()
+        threading.Thread(target=connection, args=(client_socket, address)).start()
 
 
 receive_messages_from_client()
