@@ -5,10 +5,10 @@ import random
 messages = []
 connected_clients = []
 MAX_CONNECTION = 3
+encryption_key = random.randint(1, 50)
 
 history_file = open("history_messages.txt", "r+")
 history = history_file.readlines()
-encryption_key = random.randint(1, 50)
 
 
 def send_encryption_key(client_connection):
@@ -30,7 +30,7 @@ def decryption(message_to_decrypt):
 def handle_client_messages(client_connection):
     while True:
         try:
-            data = client_connection.recv(1024).decode()
+            data = client_connection.recv(1024).decode("utf-8")
         except ConnectionResetError:
             break
 
@@ -51,7 +51,7 @@ def send_history(client_connection):
 def send_message_to_all_clients(message: str):
     for client in connected_clients:
         try:
-            client.send(message.encode())
+            client.send(message.encode("utf-8"))
         except OSError:
             print("OSError")
             connected_clients.remove(client)

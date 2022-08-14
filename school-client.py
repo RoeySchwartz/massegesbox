@@ -21,23 +21,23 @@ class Client:
         encrypted_message = ''
         for char_to_encrypt in message_to_encrypt:
             encrypted_message += chr(ord(char_to_encrypt) + int(self.encryption_key))
-        self.server_socket.send(encrypted_message.encode())
+        self.server_socket.send(encrypted_message.encode("utf-8"))
 
     def decryption(self, message_to_decrypt):
         decrypted_message = ''
         for char_to_decrypt in message_to_decrypt:
             decrypted_message += chr(ord(char_to_decrypt) - int(self.encryption_key))
+        self.overview.config(state='normal')
+        self.overview.insert('end', decrypted_message)
+        self.overview.config(state='disabled')
 
     def client_receive_message(self, server_socket):
         while True:
-            data = server_socket.recv(1024).decode()
+            data = server_socket.recv(1024).decode("utf-8")
             self.decryption(str(data))
             if not data:
                 break
-            self.overview.config(state='normal')
-            self.overview.insert('end', data)
-            self.overview.config(state='disabled')
-            print(str(data))
+
 
     def print_in_gui(self):
         self.win = tkinter.Tk()
@@ -67,7 +67,7 @@ class Client:
 
     def client_program(self):
         self.server_socket.connect((self.HOST, self.PORT))
-        self.encryption_key = self.server_socket.recv(1024).decode()
+        self.encryption_key = self.server_socket.recv(1024).decode("utf-8")
         self.print_in_gui()
 
 
