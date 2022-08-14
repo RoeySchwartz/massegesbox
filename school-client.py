@@ -3,12 +3,11 @@ import socket
 import threading
 import tkinter
 import tkinter.scrolledtext
-from cryptography.fernet import Fernet
 
 
 class Client:
     def __init__(self, server_socket, HOST, PORT):
-        self.encryption = None
+        self.data = None
         self.encryption_key = None
         self.name = input('enter your name: ')
         self.win = None
@@ -18,13 +17,25 @@ class Client:
         self.HOST = HOST
         self.PORT = PORT
 
+    def encryption(self, message_to_encrypt):
+        encrypted_message = ''
+        for char_to_encrypt in message_to_encrypt:
+            encrypted_message += chr(ord(char_to_encrypt) + int(self.encryption_key))
+        self.server_socket.send(encrypted_message.encode())
+
+    def decryption(self, message_to_decrypt):
+        decrypted_message = ''
+        for char_to_decrypt in message_to_decrypt:
+            decrypted_message += chr(ord(char_to_decrypt) - int(self.encryption_key))
+
     def client_receive_message(self, server_socket):
         while True:
             data = server_socket.recv(1024).decode()
+            self.decryption(str(data))
             if not data:
                 break
             self.overview.config(state='normal')
-            self.overview.insert('end', str(data))
+            self.overview.insert('end', data)
             self.overview.config(state='disabled')
             print(str(data))
 
@@ -51,14 +62,12 @@ class Client:
     def button(self):
         message_from_message_box = self.message_box.get("1.0", "end")
         self.message_box.delete('1.0', 'end')
-        message_to_encryption = f'{self.name}: {message_from_message_box}'
-        self.server_socket.send(self.encryption(message_to_encryption.encode()))
-
+        message_for_encryption = f'{self.name}: {message_from_message_box}'
+        self.encryption(message_for_encryption)
 
     def client_program(self):
         self.server_socket.connect((self.HOST, self.PORT))
         self.encryption_key = self.server_socket.recv(1024).decode()
-        self.encryption = Fernet(self.encryption_key)
         self.print_in_gui()
 
 
