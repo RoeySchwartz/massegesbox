@@ -5,7 +5,7 @@ import tkinter.scrolledtext
 
 
 class Client:
-    def __init__(self, server_socket, host, port, name):
+    def __init__(self, server_socket, host, port, name: str):
         self.data = None
         self.encryption_key = None
         self.name = name
