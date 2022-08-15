@@ -12,7 +12,7 @@ history = history_file.readlines()
 
 
 def send_encryption_key(client_connection):
-    client_connection.send(str(encryption_key).encode())
+    client_connection.send(str(encryption_key).encode("utf-8"))
 
 
 def init_client_connection(client_connection):
@@ -23,29 +23,35 @@ def init_client_connection(client_connection):
 
 def decryption(message_to_decrypt):
     decrypted_message = ''
-    for char in message_to_decrypt:
-        decrypted_message += chr(ord(char) - encryption_key)
+    for char_to_decrypt in message_to_decrypt:
+        decrypted_message += chr(ord(char_to_decrypt) - int(encryption_key))
+    history_file.write(decrypted_message)
+    history_file.flush()
+
+
+def encryption(client_connection, list_messages_to_encrypt):
+    for message_to_encrypt in list_messages_to_encrypt:
+        encrypted_message = ''
+        for char_to_encrypt in message_to_encrypt:
+            encrypted_message += chr(ord(char_to_encrypt) + int(encryption_key))
+        client_connection.send(encrypted_message.encode("utf-8"))
 
 
 def handle_client_messages(client_connection):
     while True:
         try:
             data = client_connection.recv(1024).decode("utf-8")
+            print(data)
         except ConnectionResetError:
             break
-
         if not data:
             break
         send_message_to_all_clients(data)
         decryption(data)
-        history.append(data)
-        history_file.write(data)
-        history_file.flush()
 
 
 def send_history(client_connection):
-    for message in history:
-        client_connection.send(message.encode())
+    encryption(client_connection, history)
 
 
 def send_message_to_all_clients(message: str):
@@ -59,7 +65,7 @@ def send_message_to_all_clients(message: str):
 
 def start_server_program():
     host = socket.gethostbyname('localhost')
-    port = 9092
+    port = 9090
 
     server_socket = socket.socket()
     server_socket.bind((host, port))

@@ -9,7 +9,7 @@ class Client:
     def __init__(self, server_socket, HOST, PORT):
         self.data = None
         self.encryption_key = None
-        self.name = input('enter your name: ')
+        self.name = ''
         self.win = None
         self.overview = None
         self.message_box = None
@@ -24,20 +24,20 @@ class Client:
         self.server_socket.send(encrypted_message.encode("utf-8"))
 
     def decryption(self, message_to_decrypt):
-        decrypted_message = ''
+        decrypted_message = ""
         for char_to_decrypt in message_to_decrypt:
             decrypted_message += chr(ord(char_to_decrypt) - int(self.encryption_key))
-        self.overview.config(state='normal')
-        self.overview.insert('end', decrypted_message)
-        self.overview.config(state='disabled')
+        self.overview.config(state="normal")
+        self.overview.insert("end", decrypted_message)
+        self.overview.config(state="disabled")
 
     def client_receive_message(self, server_socket):
         while True:
             data = server_socket.recv(1024).decode("utf-8")
-            self.decryption(str(data))
+            self.decryption(data)
             if not data:
                 break
-
+            print(str(data))
 
     def print_in_gui(self):
         self.win = tkinter.Tk()
@@ -72,5 +72,5 @@ class Client:
 
 
 if __name__ == '__main__':
-    play = Client(socket.socket(socket.AF_INET, socket.SOCK_STREAM), socket.gethostbyname('localhost'), 9092)
+    play = Client(socket.socket(socket.AF_INET, socket.SOCK_STREAM), socket.gethostbyname('localhost'), 9090)
     play.client_program()
