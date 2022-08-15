@@ -1,6 +1,9 @@
-from multiprocessing.connection import Client
 import socket
+from main_client import Client
 
-if __name__ == '__main__':
-    Client2 = Client(socket.socket(socket.AF_INET, socket.SOCK_STREAM), socket.gethostbyname('localhost'), 9090, "Roey")
-    Client2.client_program()
+host = socket.gethostbyname('localhost')
+port = 9090
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+Client2 = Client(server, host, port, "Roey")
+Client2.client_program()
