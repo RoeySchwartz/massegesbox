@@ -5,7 +5,7 @@ import tkinter.scrolledtext
 
 
 class Client:
-    def __init__(self, server_socket, host, port, name: str):
+    def __init__(self, server_socket, host, port, name):
         self.data = None
         self.encryption_key = None
         self.name = name
@@ -41,6 +41,7 @@ class Client:
     def print_in_gui(self):
         self.win = tkinter.Tk()
         self.win.geometry("500x500")
+        title_of_graphic = self.win.title(f"{self.name} chat: ")
         top_title = tkinter.Label(self.win, text="chat: ")
         top_title.place(x=230, y=1)
 
@@ -68,4 +69,3 @@ class Client:
         self.server_socket.connect((self.HOST, self.PORT))
         self.encryption_key = self.server_socket.recv(1024).decode("utf-8")
         self.print_in_gui()
-
