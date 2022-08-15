@@ -4,8 +4,8 @@ import tkinter
 import tkinter.scrolledtext
 
 
-class Client3:
-    def __init__(self, server_socket, HOST, PORT, name):
+class Client:
+    def __init__(self, server_socket, host, port, name):
         self.data = None
         self.encryption_key = None
         self.name = name
@@ -13,8 +13,8 @@ class Client3:
         self.overview = None
         self.message_box = None
         self.server_socket = server_socket
-        self.HOST = HOST
-        self.PORT = PORT
+        self.HOST = host
+        self.PORT = port
 
     def encryption(self, message_to_encrypt):
         encrypted_message = ''
@@ -69,7 +69,3 @@ class Client3:
         self.encryption_key = self.server_socket.recv(1024).decode("utf-8")
         self.print_in_gui()
 
-
-if __name__ == '__main__':
-    play = Client3(socket.socket(socket.AF_INET, socket.SOCK_STREAM), socket.gethostbyname('localhost'), 9090)
-    play.client_program()
