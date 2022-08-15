@@ -25,6 +25,7 @@ def decryption(message_to_decrypt):
     decrypted_message = ''
     for char_to_decrypt in message_to_decrypt:
         decrypted_message += chr(ord(char_to_decrypt) - int(encryption_key))
+    history.append(decrypted_message)
     history_file.write(decrypted_message)
     history_file.flush()
 

@@ -1,15 +1,14 @@
-import os
 import socket
 import threading
 import tkinter
 import tkinter.scrolledtext
 
 
-class Client:
-    def __init__(self, server_socket, HOST, PORT):
+class Client3:
+    def __init__(self, server_socket, HOST, PORT, name):
         self.data = None
         self.encryption_key = None
-        self.name = ''
+        self.name = name
         self.win = None
         self.overview = None
         self.message_box = None
@@ -72,5 +71,5 @@ class Client:
 
 
 if __name__ == '__main__':
-    play = Client(socket.socket(socket.AF_INET, socket.SOCK_STREAM), socket.gethostbyname('localhost'), 9090)
+    play = Client3(socket.socket(socket.AF_INET, socket.SOCK_STREAM), socket.gethostbyname('localhost'), 9090)
     play.client_program()
