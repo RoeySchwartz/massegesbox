@@ -35,8 +35,32 @@
 #
 # print(f"the degrees in farenhit is {farenhit} degrees")
 
-# challenge1:
+# challenge 1:
 # x = int(input("enter a number "))
 # x += 1
 #
 # print(x * x * 50)
+
+# challenge 2:
+# grade1 = int(input("enter your grade "))
+# grade2 = int(input("enter your grade "))
+# grade3 = int(input("enter your grade "))
+#
+# average = (grade1 + grade2 + grade3) / 3
+#
+# print("your grade is ", )
+
+
+# challenge 3:
+# status = int(input("enter your status- if you are youth press 1, if you are adult press 0 "))
+# print((status + 1) * -50 + 150)
+
+# challenge 4:
+# num = float(input("enter a number "))
+# print(int(num + 0.5))
+
+# challenge 5:
+num = int(input("enter a number "))
+Type = str(input(" enter the type of the number if it is enter 'bin', if it is octal press 'oct' "))
+
+print(num, 10)
