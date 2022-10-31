@@ -60,7 +60,11 @@
 # print(int(num + 0.5))
 
 # challenge 5:
-num = int(input("enter a number "))
-Type = str(input(" enter the type of the number if it is enter 'bin', if it is octal press 'oct' "))
-
-print(num, 10)
+# num = int(input("enter a number "))
+# x = int(input(" enter the type of the number if it is a binary number enter '2', if it is octal press '8' "))
+#
+# digit1 = num % 10
+# digit2 = num // 10 % 10
+# digit3 = num // 100
+#
+# print((digit1 * (x ** 0)) + (digit2 * (x ** 1)) + (digit3 * (x ** 2)))
