@@ -1,36 +1,47 @@
-import os
 import socket
 import threading
 import tkinter
 import tkinter.scrolledtext
-from cryptography.fernet import Fernet
 
 
 class Client:
-    def __init__(self, server_socket, HOST, PORT):
-        self.encryption = None
+    def __init__(self, server_socket, host, port, name):
+        self.data = None
         self.encryption_key = None
-        self.name = input('enter your name: ')
+        self.name = name
         self.win = None
         self.overview = None
         self.message_box = None
         self.server_socket = server_socket
-        self.HOST = HOST
-        self.PORT = PORT
+        self.HOST = host
+        self.PORT = port
+
+    def encryption(self, message_to_encrypt):
+        encrypted_message = ''
+        for char_to_encrypt in message_to_encrypt:
+            encrypted_message += chr(ord(char_to_encrypt) + int(self.encryption_key))
+        self.server_socket.send(encrypted_message.encode("utf-8"))
+
+    def decryption(self, message_to_decrypt):
+        decrypted_message = ""
+        for char_to_decrypt in message_to_decrypt:
+            decrypted_message += chr(ord(char_to_decrypt) - int(self.encryption_key))
+        self.overview.config(state="normal")
+        self.overview.insert("end", decrypted_message)
+        self.overview.config(state="disabled")
 
     def client_receive_message(self, server_socket):
         while True:
-            data = server_socket.recv(1024).decode()
+            data = server_socket.recv(1024).decode("utf-8")
+            self.decryption(data)
             if not data:
                 break
-            self.overview.config(state='normal')
-            self.overview.insert('end', str(data))
-            self.overview.config(state='disabled')
             print(str(data))
 
     def print_in_gui(self):
         self.win = tkinter.Tk()
         self.win.geometry("500x500")
+        title_of_graphic = self.win.title(f"{self.name} chat: ")
         top_title = tkinter.Label(self.win, text="chat: ")
         top_title.place(x=230, y=1)
 
@@ -51,17 +62,10 @@ class Client:
     def button(self):
         message_from_message_box = self.message_box.get("1.0", "end")
         self.message_box.delete('1.0', 'end')
-        message_to_encryption = f'{self.name}: {message_from_message_box}'
-        self.server_socket.send(self.encryption(message_to_encryption.encode()))
-
+        message_for_encryption = f'{self.name}: {message_from_message_box}'
+        self.encryption(message_for_encryption)
 
     def client_program(self):
         self.server_socket.connect((self.HOST, self.PORT))
-        self.encryption_key = self.server_socket.recv(1024).decode()
-        self.encryption = Fernet(self.encryption_key)
+        self.encryption_key = self.server_socket.recv(1024).decode("utf-8")
         self.print_in_gui()
-
-
-if __name__ == '__main__':
-    play = Client(socket.socket(socket.AF_INET, socket.SOCK_STREAM), socket.gethostbyname('localhost'), 9092)
-    play.client_program()
