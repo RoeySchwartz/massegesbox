@@ -1,4 +1,37 @@
-# #q6
+# introduction:
+# q1:
+# full_name = str(input("enter your full name "))
+#
+# print(f"Hello {full_name} Welcome to our program! ")
+
+# q5:
+# MAGIC_NUMBER = 5
+# num = int(input("enter a number "))
+#
+# print(MAGIC_NUMBER, num, MAGIC_NUMBER)
+
+# q6:
+# num = int(input("enter a number "))
+#
+# print(num, end="*")
+# print(num, end="*")
+# print(num)
+
+# q7:
+
+# Company = str(input("enter your company name "))
+# Business_description = str(input("enter the job that you expect for "))
+# City = str(input("enter where is the office "))
+# Phone_number = int(input("enter your phone number "))
+#
+# Name = str(input("enter your full name "))
+# Role = str(input("enter your role "))
+# Mail = str(input("enter your mail "))
+#
+# print(f"{Company}\n{Business_description}\n{City}\n{Phone_number}\n{Name}\n{Role}\n{Mail}\n")
+
+# Basic:
+# q6:
 # number1 = int(input("enter a number "))
 # number2 = int(input("enter a number "))
 # summer = number1+ number2
@@ -16,6 +49,7 @@
 # number_of_the_people = int(input("enter the number of the people "))
 # print(f"you need to choose {number_of_the_people//3} tents")
 
+# Advanced:
 # q7
 # number_of_the_works_hours = int(input("enter the number of your hours work "))
 # salary_for_an_hour = int(input("enter your salary "))
@@ -35,31 +69,34 @@
 #
 # print(f"the degrees in farenhit is {farenhit} degrees")
 
-# challenge 1:
+# challenge:
+# q1:
 # x = int(input("enter a number "))
 # x += 1
 #
 # print(x * x * 50)
 
-# challenge 2:
-# grade1 = int(input("enter your grade "))
-# grade2 = int(input("enter your grade "))
-# grade3 = int(input("enter your grade "))
+# q2:
+# student1 = int(input("enter your grade "))
+# student2 = int(input("enter your grade "))
+# student3 = int(input("enter your grade "))
 #
-# average = (grade1 + grade2 + grade3) / 3
+# average = (student1 + student2 + student3) // 3
+# check = int((average / 100) - 0.54)
 #
-# print("your grade is ", )
+# print(average)
+# print("your grade is ", (check + average))
 
 
-# challenge 3:
+# q3:
 # status = int(input("enter your status- if you are youth press 1, if you are adult press 0 "))
 # print((status + 1) * -50 + 150)
 
-# challenge 4:
+# q4:
 # num = float(input("enter a number "))
 # print(int(num + 0.5))
 
-# challenge 5:
+# q5:
 # num = int(input("enter a number "))
 # x = int(input(" enter the type of the number if it is a binary number enter '2', if it is octal press '8' "))
 #
