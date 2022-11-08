@@ -9,7 +9,7 @@
 
 
 # question4:
-# length = int(input("enter the lengh of a square "))
+# length = int(input("enter the length of a square "))
 # width = int(input("enter the width of a square "))
 #
 # if length == width:
