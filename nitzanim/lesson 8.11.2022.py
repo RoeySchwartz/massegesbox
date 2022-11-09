@@ -195,3 +195,18 @@
 #     print(True)
 # else:
 #     print(False)
+
+
+# BMI question:
+# name = str(input("enter your name "))
+# age = int(input("enter your age "))
+# height = float(input("enter your height "))
+# weight = float(input("enter your weight "))
+# bmi = weight / (height ** 2)
+#
+# if 18.5 <= bmi < 25 and age >= 18 or age < 18 and 15 <= bmi < 22:
+#     print("good")
+# elif bmi < 15 and age < 18 or age >= 18 and bmi < 18.5:
+#     print("low")
+# else:
+#     print("high")
