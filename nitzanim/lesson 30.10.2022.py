@@ -82,10 +82,11 @@
 # student3 = int(input("enter your grade "))
 #
 # average = (student1 + student2 + student3) // 3
-# check = int((average / 100) - 0.54)
+# check = (average / 100) + 0.44
+# average *= int(check)
 #
 # print(average)
-# print("your grade is ", (check + average))
+# print("your grade is ",average)
 
 
 # q3:
@@ -105,3 +106,4 @@
 # digit3 = num // 100
 #
 # print((digit1 * (x ** 0)) + (digit2 * (x ** 1)) + (digit3 * (x ** 2)))
+
