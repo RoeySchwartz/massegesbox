@@ -1,28 +1,5 @@
-# ex_1:
-# EVEN = "Even"
-# ODD = "Odd"
-# number = 9
-# if number % 2 == 0:
-#     print(9, "is", EVEN)
-# else:
-#     print(9, "is", ODD)
-# number = 8
-# if number % 2 == 0:
-#     print(8, "is", EVEN)
-# else:
-#     print(8, "is", ODD)
+# challenge ex4:
 
-# # ex_2:
-# length = int(input("Enter length: "))
-# width = int(input("Enter width: "))
-# total_fence = 2 * length + 2 * width
-# if total_fence < 120:
-#     print("Request received")
-# else:
-#     print("Choose shorter fence")
-
-# ex board:
-#
 # day = int(input("enter the day: "))
 # time = int(input("enter the time: "))
 # action = int(input("enter the action that you want to do: "))
@@ -89,3 +66,43 @@
 #             print("you can't get in")
 # else:
 #     print("you can't get in")
+
+# challenge ex1:
+
+# q1:
+# Harmioni = int(input("enter your card "))
+# Hari = int(input("enter your card "))
+# Ron = int(input("enter your card "))
+#
+# if Harmioni > Hari and Harmioni > Ron:
+#     if Hari + Ron == Harmioni:
+#         if Hari > Ron:
+#             print("the winner is Ron")
+#         elif Ron > Hari:
+#             print("The winner is Hari")
+#         else:
+#             print("there is no winner")
+#     else:
+#         print("The winner is Harmioni")
+#
+# elif Hari > Harmioni and Hari > Ron:
+#     if Harmioni + Ron == Hari:
+#         if Harmioni > Ron:
+#             print("The winner is Ron")
+#         elif Ron > Harmioni:
+#             print("The winner is Harmioni")
+#         else:
+#             print("there is no winner")
+#     else:
+#         print("The winner is Hari")
+#
+# elif Ron > Hari and Ron > Harmioni:
+#     if Hari + Harmioni == Ron:
+#         if Hari > Harmioni:
+#             print("the winner is Harmioni")
+#         elif Harmioni > Hari:
+#             print("The winner is Hari")
+#         else:
+#             print("There is no winner")
+#     else:
+#         print("The winner is Ron")
