@@ -29,5 +29,3 @@
 #         break
 #     counter += num
 # print(counter)
-
-# ex-6:
