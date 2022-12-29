@@ -134,16 +134,6 @@ call welcome_message
 start:
 call Random
 
-check_number:
-shl random_number, 3
-shr random_number, 3
-cmp random_number, 0
-jne good
-jmp start
-good:
-cmp random_number, 20
-ja start
-
 search:
 mov waiting, 0
 mov flag ,0
@@ -168,17 +158,13 @@ ret
 
 
 Random:
-pop ip_addr
-push bx
-push ds
-push ZERO
-pop ds
-mov bx, ADDR
-mov bx, [bx]
-pop ds
-mov random_number, bl
-pop bx
-push ip_addr
+mov  ah, 00h                        
+int  1ah                                 
+mov  ax, dx
+xor  dx, dx
+mov  cx, 20
+div  cx
+inc dx
 ret
 
 search_for_questions:
@@ -1081,7 +1067,7 @@ ret
 
 wait:
 inc waiting
-cmp waiting, 40000
+cmp waiting, 20000
 jbe wait
 ret
 
@@ -1089,27 +1075,3 @@ ret
 
 ; here your sub-programs end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
