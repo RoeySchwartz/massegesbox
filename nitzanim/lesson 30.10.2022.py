@@ -107,3 +107,4 @@
 #
 # print((digit1 * (x ** 0)) + (digit2 * (x ** 1)) + (digit3 * (x ** 2)))
 
+print(5 * "friends" // 8)
