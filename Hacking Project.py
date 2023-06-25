@@ -1,4 +1,3 @@
-import random
 import shutil
 from time import sleep
 import os
@@ -34,9 +33,9 @@ def wait_for_usb(original_path):
 
 def search_drivers():
     drvArr = ['C:', 'D:', 'E:', 'F:', 'G:', 'H:', 'I:', 'J:', 'K:', 'L:']
-    for dl in drvArr:
+    for driver in drvArr:
         try:
-            if os.path.isdir(dl):
+            if os.path.isdir(driver):
                 pass
             else:
                 wait_for_usb("D:")
